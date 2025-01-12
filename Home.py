@@ -1,0 +1,5 @@
+import streamlit as st
+
+st.header('Fruit Classification')
+st.write('This project is a Fruit Classification system built using deep learning and deployed as an interactive Streamlit web application. The model was trained on the Fruit 360 dataset, which contains a wide variety of fruits categorized into multiple classes. The application allows users to classify fruits by either uploading an image or capturing one in real time using a connected camera. Leveraging PyTorch, the model utilizes convolutional layers to extract features and fully connected layers for accurate classification. The intuitive Streamlit interface ensures seamless interaction, providing predictions instantly with a clear display of the identified fruit class. This project demonstrates the integration of advanced machine learning techniques with practical, user-friendly deployment, making it valuable for automation in agriculture, food quality control, and educational purposes.')
+st.image('C:/Users/dhanr/Desktop/fruit/ftimg.jpg', use_container_width=True)
