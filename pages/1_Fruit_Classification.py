@@ -148,8 +148,7 @@ class_names = ['Apple 6',
  'Walnut 1',
  'Watermelon 1',
  'Zucchini 1',
- 'Zucchini dark 1']# Replace with your actual class names
-
+ 'Zucchini dark 1'] # Replace with your actual class names
 
 # Define the same model architecture
 class FruitNet(nn.Module):
@@ -196,44 +195,25 @@ st.title("Fruit Classification with PyTorch")
 option = st.radio("Choose an option to input an image:", ["Use Camera", "Upload File"])
 
 if option == "Use Camera":
-    # Real-time camera access
-    camera_active = st.checkbox("Enable Camera")
+    # Request camera access
+    image_file = st.camera_input("Capture Image")
 
-    if camera_active:
-        # Start video capture
-        cap = cv2.VideoCapture(0)
-        st.write("Camera is now active. Press the 'Capture' button to take a photo.")
+    if image_file is not None:
+        # Convert the captured image to PIL format
+        image = Image.open(image_file).convert('RGB')
+        st.image(image, caption="Captured Image", use_container_width=True)
 
-        captured_image = None
+        # Preprocess the image
+        input_image = transform(image).unsqueeze(0)  # Add batch dimension
 
-        if st.button("Capture"):
-            # Read a frame from the camera
-            ret, frame = cap.read()
-            if ret:
-                # Convert to RGB
-                captured_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                st.image(captured_image, caption="Captured Image", use_container_width=True)
-            else:
-                st.write("Failed to capture image. Please try again.")
+        # Make prediction
+        with torch.no_grad():
+            output = model(input_image)
+            _, predicted = torch.max(output, 1)
+            predicted_class = class_names[predicted.item()]
 
-        # Release the camera after use
-        cap.release()
-
-        if captured_image is not None:
-            # Convert captured image to PIL format
-            image = Image.fromarray(captured_image)
-
-            # Preprocess the image
-            input_image = transform(image).unsqueeze(0)  # Add batch dimension
-
-            # Make prediction
-            with torch.no_grad():
-                output = model(input_image)
-                _, predicted = torch.max(output, 1)
-                predicted_class = class_names[predicted.item()]
-
-            # Display the prediction
-            st.write(f"Predicted Class: **{predicted_class}**")
+        # Display the prediction
+        st.write(f"Predicted Class: **{predicted_class}**")
 
 elif option == "Upload File":
     # File uploader for image
