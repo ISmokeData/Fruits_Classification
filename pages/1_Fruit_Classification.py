@@ -7,7 +7,7 @@ from torchvision import transforms
 import torch.nn as nn
 
 # Load the model
-model_path = "fruit3610_model.pth"
+model_path = "fruit360_model.pth"
 class_names = ['Apple 6',
  'Apple Braeburn 1',
  'Apple Crimson Snow 1',
