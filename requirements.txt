@@ -2,5 +2,5 @@ torch
 torchvision
 numpy
 pandas
-PIL
+pillow
 opencv-python
