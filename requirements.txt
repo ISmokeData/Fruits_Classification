@@ -1,4 +1,5 @@
-torch torchvision torchaudio
+torch 
+torchvision
 numpy
 pandas
 PIL
