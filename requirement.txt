@@ -2,4 +2,4 @@ pytorch
 numpy
 pandas
 PIL
-cv2
+opencv-python
